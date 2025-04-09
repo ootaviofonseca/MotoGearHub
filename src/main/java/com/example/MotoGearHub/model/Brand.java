@@ -1,5 +1,6 @@
 package com.example.MotoGearHub.model;
 
+import com.example.MotoGearHub.service.OpenAIQuery;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class Brand {
     private String email;
 
     private String cnpj;
-
+    @Column(length = 1000)
     private String summary;
 
     @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL,  fetch = FetchType.EAGER)
@@ -28,6 +29,13 @@ public class Brand {
 
     public List<Product> getProducts() {
         return products;
+    }
+
+    public void addProduct(Product product) {
+        if (this.products == null) {
+            this.products = new ArrayList<>();
+        }
+        this.products.add(product);
     }
 
 
@@ -38,7 +46,8 @@ public class Brand {
         this.country = country;
         this.email = email;
         this.cnpj = cnpj;
-        this.summary = " NOT IMPLEMENTED YET"; // Generate on OpenAI
+        this.summary = OpenAIQuery.getBrandInfo(name); // Generate on OpenAI
+
 
     }
 
@@ -92,7 +101,5 @@ public class Brand {
         this.summary = summary;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
+
 }
