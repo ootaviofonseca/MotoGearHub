@@ -8,18 +8,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MotoGearHubApplication implements CommandLineRunner {
-	@Autowired
-	private BrandRepository brandRepository;
+public class MotoGearHubApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MotoGearHubApplication.class, args);
-	}
-
-	@Override
-	public void run(String... args) throws Exception{
-		Main main = new Main(brandRepository);
-		main.displayMenu();
 	}
 
 }
